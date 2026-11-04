@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.1
+
+- A bare single-word arg is a feature folder name: resumes it if it exists, else starts intake with that slug and asks for the requirement.
+
 ## v1.2.0
 
 - Orchestrator calls only Skill and Agent; all reads and writes go to subagents. Non-subcommand args route to intake.

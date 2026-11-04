@@ -15,6 +15,7 @@ cp config.example.json ~/.config/forge/config.json  # then edit
 | Command | Does |
 |---|---|
 | `/forge <ticket url\|doc\|text>` | Start a run |
+| `/forge <folder-name>` | Resume that feature folder, or start a new one with that name |
 | `/forge resume [feature]` | Continue from the last checkpoint |
 | `/forge status` | Short summary + tracker path |
 | `/forge pause` | Stop at the next checkpoint (or type "pause" in any prompt) |

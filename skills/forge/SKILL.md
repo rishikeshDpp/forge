@@ -1,7 +1,7 @@
 ---
 name: forge
 description: Staged, pausable feature pipeline from ticket to tested PRs. Use for "/forge <ticket|doc|text>", "/forge resume|status|pause|skip <stage> [reason]", or when the user starts a feature end to end.
-argument-hint: "<ticket url|doc|text> | resume [feature] | status | pause | skip <stage> [reason]"
+argument-hint: "<ticket url|doc|text> | <folder-name> | resume [feature] | status | pause | skip <stage> [reason]"
 ---
 
 # /forge
@@ -16,7 +16,8 @@ Runs the stages in `<skill>/stages/` in order. One file per stage; read a stage 
 - Starting or resuming `/forge` is the user's approval to write that feature's folder for the run.
 
 ## Subcommands
-- `<input>`: start at `00-intake`. Any arg that is not a subcommand below is `<input>`.
+- `<input>`: a link (ClickUp URL/id, doc URL, file path) or requirement text (more than one word). Start at `00-intake`.
+- `<name>`: a single word/slug, no link, not a subcommand below, is a feature folder name. The bootstrap subagent (or injected context) checks `<docs_root>/<name>/`: exists → same as `resume <name>`; missing → start `00-intake` with `<name>` as the preset slug.
 - `resume [feature]`: a subagent matches the folder, sets the active pointer, clears `pause` and returns a summary; continue at `current.stage`/`current.checkpoint`.
 - `status`: answer from injected context; if more is needed, one subagent summarises state.json in 5 lines with the tracker path.
 - `pause`: set `pause: true`; stop at the next checkpoint.

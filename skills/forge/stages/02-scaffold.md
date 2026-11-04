@@ -1,6 +1,6 @@
 # 02 Scaffold
 
-1. **CP 02.1** Create the folder from `templates/folder/`:
+1. **CP 02.1** A subagent creates the folder from `templates/folder/`:
    - `README.md`: status + next step. The only index.
    - `context.md`: requirements + verified code facts (`path:line`, no pasted code).
    - `questions.md`: live numbered question tree.

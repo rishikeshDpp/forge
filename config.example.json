@@ -15,6 +15,9 @@
     "all": ["One-line comments only", "Constants only in constants files"],
     "frontend": ["Form validation with yup"]
   },
+  "clickup": {
+    "default_assignee": { "name": "Your Name", "id": 0 }
+  },
   "skills": {
     "clickup": "clickup-task",
     "raising_pr": "raising-pr",

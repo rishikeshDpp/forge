@@ -34,7 +34,7 @@ Each stage is one file in `skills/forge/stages/`; swap or edit them freely.
 
 ## Config
 
-`~/.config/forge/config.json` (never committed). See `config.example.json`: docs root, GitHub owner, repos (path, type, local URL), review checklists, repo rules, skill names, drisp flags, PR size cap.
+`~/.config/forge/config.json` (never committed). See `config.example.json`: docs root, GitHub owner, repos (path, type, local URL), review checklists, repo rules, skill names, ClickUp default assignee, drisp flags, PR size cap.
 
 ## Status line
 

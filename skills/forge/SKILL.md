@@ -10,26 +10,27 @@ Runs the stages in `<skill>/stages/` in order. One file per stage; read a stage 
 
 ## Setup
 - Paths: `<skill>` is this skill's base directory. Repo root: `<root>` = `$(realpath <skill>)/../..`.
-- Config: `~/.config/forge/config.json` (shape: `<root>/config.example.json`). Missing: ask the user to copy and fill it; stop.
-- Feature folder: `<docs_root>/<feature>/`. Active pointer: `~/.config/forge/active` holds the folder's absolute path.
+- Config: `~/.config/forge/config.json` (shape: `<root>/config.example.json`). Read from injected context; `forge: no config` means ask the user to copy and fill it; stop.
+- Feature folder: `<docs_root>/<feature>/`. Active pointer: `~/.config/forge/active` holds the folder's absolute path; subagents write it.
 - Source of truth: `<folder>/state.json` (shape: `templates/state.json`). Re-render after every write: `python3 "<root>/scripts/render-tracker.py" <folder>`.
 - Starting or resuming `/forge` is the user's approval to write that feature's folder for the run.
 
 ## Subcommands
-- `<input>`: start at `00-intake`.
-- `resume [feature]`: set active pointer, clear `pause`, read only the folder files, continue at `current.stage`/`current.checkpoint`.
-- `status`: summarise state.json in 5 lines; give the tracker path.
+- `<input>`: start at `00-intake`. Any arg that is not a subcommand below is `<input>`.
+- `resume [feature]`: a subagent matches the folder, sets the active pointer, clears `pause` and returns a summary; continue at `current.stage`/`current.checkpoint`.
+- `status`: answer from injected context; if more is needed, one subagent summarises state.json in 5 lines with the tracker path.
 - `pause`: set `pause: true`; stop at the next checkpoint.
 - `skip <stage> [reason]`: set status `skipped` + reason. A hook also flags "skip <stage>" in any prompt.
 
 ## Main thread rules
-- Main thread does product Q&A only. Every lookup, edit, build, test, PR or ClickUp action runs in a subagent with a full brief (goal, paths, config values, what is ruled out, output wanted). Run independent subagents in parallel, always.
+- Main thread does product Q&A only. Its only tool calls are Skill and Agent. Every lookup, edit, build, test, PR or ClickUp action runs in a subagent with a full brief (goal, paths, config values, what is ruled out, output wanted). Run independent subagents in parallel, always.
+- Never read config, the active pointer, state.json, `pause`, folder matches or args inline. Use the hook-injected `forge:` context block, or one quick bootstrap subagent returning at most 5 lines.
 - Relay results short, organised, in product language. State a subagent claim as fact only if it says it read or ran it; otherwise label it unverified.
 - Never ask the user a fact a subagent can look up.
 
 ## Checkpoints and pause
 - Each stage lists small checkpoints. After each: update state.json (`current`, stage `checkpoints[]`, results) and the folder files, then re-render. A cleared context loses nothing.
-- Before each step, read `pause`. If true: write state, report where it stopped, end the turn.
+- Before each step, check `pause` from injected context or the last subagent's report. If true: a subagent writes state; report where it stopped, end the turn.
 - After grilling (stage 04) ends, run every later stage without stopping for the user, except the test-flow approval gate (06) and pauses.
 
 ## Git and safety

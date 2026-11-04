@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.0
+
+- Orchestrator calls only Skill and Agent; all reads and writes go to subagents. Non-subcommand args route to intake.
+- Hook injects a compact `forge:` context block (docs root, active feature, stage, pause, assignee) on every prompt.
+- New config `clickup.default_assignee`, used for the story and PR subtasks.
+
 ## v1.1.0 — renamed to forge
 
 - Plugin, marketplace, skill and config dir (`~/.config/forge`) renamed to forge.

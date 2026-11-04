@@ -1,5 +1,5 @@
 {
-  "description": "Detects 'pause' and 'skip <stage>' in prompts during an active feature-flow run.",
+  "description": "Detects 'pause' and 'skip <stage>' in prompts during an active forge run.",
   "hooks": {
     "UserPromptSubmit": [
       {

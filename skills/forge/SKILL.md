@@ -1,18 +1,19 @@
 ---
-name: feature
-description: Staged, pausable feature pipeline from ticket to tested PRs. Use for "/feature <ticket|doc|text>", "/feature resume|status|pause|skip <stage> [reason]", or when the user starts a feature end to end.
+name: forge
+description: Staged, pausable feature pipeline from ticket to tested PRs. Use for "/forge <ticket|doc|text>", "/forge resume|status|pause|skip <stage> [reason]", or when the user starts a feature end to end.
 argument-hint: "<ticket url|doc|text> | resume [feature] | status | pause | skip <stage> [reason]"
 ---
 
-# /feature
+# /forge
 
-Runs the stages in `stages/` in order. One file per stage; read a stage file only when entering it.
+Runs the stages in `<skill>/stages/` in order. One file per stage; read a stage file only when entering it.
 
 ## Setup
-- Config: `~/.config/feature-flow/config.json` (shape: `config.example.json` in the plugin root). Missing: ask the user to copy and fill it; stop.
-- Feature folder: `<docs_root>/<feature>/`. Active pointer: `~/.config/feature-flow/active` holds the folder's absolute path.
-- Source of truth: `<folder>/state.json` (shape: `templates/state.json`). Re-render after every write: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/render-tracker.py" <folder>`.
-- Starting or resuming `/feature` is the user's approval to write that feature's folder for the run.
+- Paths: `<skill>` is this skill's base directory. Repo root: `<root>` = `$(realpath <skill>)/../..`.
+- Config: `~/.config/forge/config.json` (shape: `<root>/config.example.json`). Missing: ask the user to copy and fill it; stop.
+- Feature folder: `<docs_root>/<feature>/`. Active pointer: `~/.config/forge/active` holds the folder's absolute path.
+- Source of truth: `<folder>/state.json` (shape: `templates/state.json`). Re-render after every write: `python3 "<root>/scripts/render-tracker.py" <folder>`.
+- Starting or resuming `/forge` is the user's approval to write that feature's folder for the run.
 
 ## Subcommands
 - `<input>`: start at `00-intake`.
@@ -41,4 +42,4 @@ Runs the stages in `stages/` in order. One file per stage; read a stage file onl
 ## Stages
 `00-intake` → `01-clickup-story` → `02-scaffold` → `03-research` → `04-grilling` → `05-rewrite-folder` → `06-test-flows` → `07-build` → `08-review` → `09-prs` → `10-test` → `12-walkthrough`. `11-audit` runs after 05, 07 and 10.
 
-Templates: `templates/folder/` (folder files incl. test-flow and audit formats), `templates/state.json`, `templates/walkthrough.html`.
+Templates (under `<skill>`): `templates/folder/` (folder files incl. test-flow and audit formats), `templates/state.json`, `templates/walkthrough.html`.

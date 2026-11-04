@@ -41,7 +41,7 @@ def render(s):
            f"<p class='muted'>Stage {e(cur.get('stage'))} · checkpoint {e(cur.get('checkpoint') or '-')}"
            f"{' · ClickUp ' + e(s['clickup'].get('story')) if s.get('clickup', {}).get('story') else ''}</p>"]
     if s.get("pause"):
-        out.append("<p class='paused'>Paused. Run /feature resume to continue.</p>")
+        out.append("<p class='paused'>Paused. Run /forge resume to continue.</p>")
 
     out.append("<h2>Stages</h2><ol class='tl'>")
     for st in s.get("stages", []):

@@ -1,14 +1,14 @@
 {
-  "name": "feature-flow",
-  "description": "Marketplace for the feature-flow Claude Code plugin.",
+  "name": "forge",
+  "description": "Marketplace for the forge Claude Code plugin.",
   "owner": {
     "name": "rishikeshDpp"
   },
   "plugins": [
     {
-      "name": "feature-flow",
+      "name": "forge",
       "description": "Staged, pausable feature-development pipeline.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "source": "./"
     }
   ]

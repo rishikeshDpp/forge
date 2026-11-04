@@ -1,6 +1,6 @@
 #!/bin/sh
-# Prints "feature · stage · CP · open Qs" for the active feature-flow run.
-ACTIVE="${FEATURE_FLOW_HOME:-$HOME/.config/feature-flow}/active"
+# Prints "feature · stage · CP · open Qs" for the active forge run.
+ACTIVE="${FORGE_HOME:-$HOME/.config/forge}/active"
 cat >/dev/null 2>&1
 [ -f "$ACTIVE" ] || exit 0
 DIR=$(head -n 1 "$ACTIVE")
